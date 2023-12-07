@@ -8,7 +8,7 @@ public class CustomerDataAccess {
         this.customerDataLayer = customerDataLayer;
     }
 
-    public CustomerMatches loadCompanyCustomer(String externalId, String companyNumber) {
+    public CustomerMatches findMatchBy(String externalId, String companyNumber) {
         CustomerMatches matches = new CustomerMatches();
         Customer matchByExternalId = this.customerDataLayer.findByExternalId(externalId);
         if (matchByExternalId != null) {
@@ -27,7 +27,7 @@ public class CustomerDataAccess {
         return matches;
     }
 
-    public CustomerMatches loadPersonCustomer(String externalId) {
+    public CustomerMatches findMatchBy(String externalId) {
         CustomerMatches matches = new CustomerMatches();
         Customer matchByPersonalNumber = this.customerDataLayer.findByExternalId(externalId);
         matches.setCustomer(matchByPersonalNumber);
