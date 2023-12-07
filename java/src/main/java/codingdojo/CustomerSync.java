@@ -14,6 +14,12 @@ public class CustomerSync {
         this.customerDataAccess = db;
     }
 
+    /**
+     * Syncs external customer with data layer customer.
+     *
+     * @param externalCustomer the external customer to be synced
+     * @return true if a new customer was created
+     */
     public boolean syncWithDataLayer(ExternalCustomer externalCustomer) {
 
         CustomerMatches customerMatches;
