@@ -43,7 +43,7 @@ public class CustomerSync {
             customer.setMasterExternalId(externalCustomer.getExternalId());
         }
 
-        populateNameTypeCompanyNumber(externalCustomer, customer);
+        populateNameTypeCompanyNumberBonusPoints(externalCustomer, customer);
 
         boolean created = false;
         if (customer.getInternalId() == null) {
@@ -101,12 +101,13 @@ public class CustomerSync {
         return this.customerMatcher.createCustomerRecord(customer);
     }
 
-    private void populateNameTypeCompanyNumber(ExternalCustomer externalCustomer, Customer customer) {
+    private void populateNameTypeCompanyNumberBonusPoints(ExternalCustomer externalCustomer, Customer customer) {
         customer.setName(externalCustomer.getName());
         if (externalCustomer.isCompany()) {
             customer.setCompanyNumber(externalCustomer.getCompanyNumber());
             customer.setCustomerType(CustomerType.COMPANY);
         } else {
+            customer.setBonusPoints(externalCustomer.getBonusPoints());
             customer.setCustomerType(CustomerType.PERSON);
         }
     }

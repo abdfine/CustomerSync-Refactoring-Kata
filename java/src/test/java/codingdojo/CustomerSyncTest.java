@@ -292,6 +292,7 @@ public class CustomerSyncTest {
         externalCustomer.setName("Joe Bloggs");
         externalCustomer.setAddress(new Address("123 main st", "Stockholm", "SE-123 45"));
         externalCustomer.setPreferredStore("Nordstan");
+        externalCustomer.setBonusPoints(5);
         externalCustomer.setShoppingLists(Arrays.asList(new ShoppingList("lipstick", "foundation")));
         return externalCustomer;
     }

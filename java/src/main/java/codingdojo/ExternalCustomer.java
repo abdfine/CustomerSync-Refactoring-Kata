@@ -12,6 +12,7 @@ public class ExternalCustomer {
     private List<ShoppingList> shoppingLists;
     private String externalId;
     private String companyNumber;
+    private int bonusPoints;
 
     public String getExternalId() {
         return externalId;
@@ -65,4 +66,11 @@ public class ExternalCustomer {
         this.address = address;
     }
 
+    public void setBonusPoints(int bonusPoints) {
+        this.bonusPoints = bonusPoints;
+    }
+
+    public int getBonusPoints() {
+        return bonusPoints;
+    }
 }
