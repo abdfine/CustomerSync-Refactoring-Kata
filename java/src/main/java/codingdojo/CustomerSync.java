@@ -6,8 +6,8 @@ public class CustomerSync {
 
     private final CustomerMatcher customerMatcher;
 
-    public CustomerSync(CustomerDataLayer customerDataLayer) {
-        this(new CustomerMatcher(customerDataLayer));
+    public CustomerSync(CustomerRepository customerRepository) {
+        this(new CustomerMatcher(customerRepository));
     }
 
     public CustomerSync(CustomerMatcher db) {
@@ -15,12 +15,12 @@ public class CustomerSync {
     }
 
     /**
-     * Syncs external customer with data layer customer.
+     * Syncs external customer with customer base.
      *
      * @param externalCustomer the external customer to be synced
      * @return true if a new customer was created
      */
-    public boolean syncWithDataLayer(ExternalCustomer externalCustomer) {
+    public boolean syncExternalCustomer(ExternalCustomer externalCustomer) {
 
         CustomerMatches customerMatches;
         if (externalCustomer.isCompany()) {

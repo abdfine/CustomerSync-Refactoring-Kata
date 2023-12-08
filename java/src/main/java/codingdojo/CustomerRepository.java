@@ -1,6 +1,6 @@
 package codingdojo;
 
-public interface CustomerDataLayer {
+public interface CustomerRepository {
 
     Customer updateCustomerRecord(Customer customer);
 

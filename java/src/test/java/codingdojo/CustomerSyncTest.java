@@ -33,7 +33,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertFalse(created);
         printAfterState(db, toAssert);
@@ -58,7 +58,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertFalse(created);
         printAfterState(db, toAssert);
@@ -82,7 +82,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertFalse(created);
         printAfterState(db, toAssert);
@@ -100,7 +100,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertTrue(created);
         printAfterState(db, toAssert);
@@ -118,7 +118,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertTrue(created);
         printAfterState(db, toAssert);
@@ -143,7 +143,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         Assertions.assertThrows(ConflictException.class, () -> {
-            sut.syncWithDataLayer(externalCustomer);
+            sut.syncExternalCustomer(externalCustomer);
         }, printAfterState(db, toAssert).toString());
 
         Approvals.verify(toAssert);
@@ -166,7 +166,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertTrue(created);
         printAfterState(db, toAssert);
@@ -191,7 +191,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertFalse(created);
         printAfterState(db, toAssert);
@@ -217,7 +217,7 @@ public class CustomerSyncTest {
 
         // ACT
         Assertions.assertThrows(ConflictException.class, () -> {
-            sut.syncWithDataLayer(externalCustomer);
+            sut.syncExternalCustomer(externalCustomer);
         }, printAfterState(db, toAssert).toString());
 
         Approvals.verify(toAssert);
@@ -242,7 +242,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         Assertions.assertThrows(ConflictException.class, () -> {
-            sut.syncWithDataLayer(externalCustomer);
+            sut.syncExternalCustomer(externalCustomer);
         }, printAfterState(db, toAssert).toString());
 
         Approvals.verify(toAssert);
@@ -273,7 +273,7 @@ public class CustomerSyncTest {
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
-        boolean created = sut.syncWithDataLayer(externalCustomer);
+        boolean created = sut.syncExternalCustomer(externalCustomer);
 
         assertFalse(created);
         printAfterState(db, toAssert);

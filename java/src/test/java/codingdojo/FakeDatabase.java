@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Fake implementation of data layer that stores data in-memory
  */
-public class FakeDatabase implements CustomerDataLayer {
+public class FakeDatabase implements CustomerRepository {
 
     private final HashMap<String, Customer> customersByExternalId = new HashMap<String, Customer>();
     private final HashMap<String, Customer> customersByMasterExternalId = new HashMap<String, Customer>();
