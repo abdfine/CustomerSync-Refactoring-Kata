@@ -1,7 +1,6 @@
 package codingdojo.matching;
 
-import codingdojo.ConflictException;
-import codingdojo.ExternalCustomer;
+import codingdojo.sync.ExternalCustomer;
 import codingdojo.model.Customer;
 import codingdojo.model.CustomerRepository;
 import codingdojo.model.CustomerType;

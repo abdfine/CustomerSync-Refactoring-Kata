@@ -1,16 +1,15 @@
-package codingdojo;
+package codingdojo.sync;
 
 import codingdojo.model.Customer;
 import codingdojo.model.CustomerType;
 import codingdojo.model.ShoppingList;
 
-import java.util.List;
-
-public class CustomerSynchronizer {
-    private CustomerSynchronizer() {
+public class DefaultSynchronizationStrategy implements CustomerSynchronizationStrategy {
+    public DefaultSynchronizationStrategy() {
     }
 
-    static Customer updateDuplicate(ExternalCustomer externalCustomer, Customer duplicate) {
+    @Override
+    public Customer updateDuplicate(ExternalCustomer externalCustomer, Customer duplicate) {
         if (duplicate == null) {
             duplicate = new Customer();
             duplicate.setExternalId(externalCustomer.getExternalId());
@@ -21,7 +20,8 @@ public class CustomerSynchronizer {
         return duplicate;
     }
 
-    static Customer syncCustomer(ExternalCustomer externalCustomer, Customer customer) {
+    @Override
+    public Customer syncCustomer(ExternalCustomer externalCustomer, Customer customer) {
         if (customer == null) {
             customer = new Customer();
             customer.setExternalId(externalCustomer.getExternalId());

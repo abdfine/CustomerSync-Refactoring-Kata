@@ -1,4 +1,4 @@
-package codingdojo;
+package codingdojo.sync;
 
 public class ExternalCustomerPrinter {
 

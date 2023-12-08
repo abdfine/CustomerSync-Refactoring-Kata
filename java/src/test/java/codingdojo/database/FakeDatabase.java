@@ -1,9 +1,10 @@
 package codingdojo.database;
 
-import codingdojo.*;
 import codingdojo.model.Customer;
 import codingdojo.model.CustomerRepository;
 import codingdojo.model.ShoppingList;
+import codingdojo.sync.CustomerPrinter;
+import codingdojo.sync.ShoppingListPrinter;
 
 import java.util.*;
 

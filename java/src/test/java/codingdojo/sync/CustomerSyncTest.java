@@ -1,6 +1,7 @@
-package codingdojo;
+package codingdojo.sync;
 
 import codingdojo.database.FakeDatabase;
+import codingdojo.matching.ConflictException;
 import codingdojo.matching.CustomerMatcher;
 import codingdojo.model.Address;
 import codingdojo.model.Customer;
@@ -19,7 +20,7 @@ public class CustomerSyncTest {
 
     private final FakeDatabase db = new FakeDatabase();
     private final CustomerMatcher matcher = new CustomerMatcher(db);
-    CustomerSync sut = new CustomerSync(matcher, db);
+    CustomerSync sut = new CustomerSync(matcher, db, new DefaultSynchronizationStrategy());
 
     /**
      * The external record already exists in the customer db, so no need to create it.
@@ -36,7 +37,6 @@ public class CustomerSyncTest {
         customer.setExternalId(externalId);
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(matcher,db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 

@@ -1,4 +1,4 @@
-package codingdojo;
+package codingdojo.sync;
 
 import codingdojo.matching.CustomerMatcher;
 import codingdojo.matching.CustomerMatches;
@@ -9,11 +9,13 @@ public class CustomerSync {
 
     private final CustomerMatcher customerMatcher;
     private final CustomerRepository customerRepository;
+    private final CustomerSynchronizationStrategy synchronizationStrategy;
 
 
-    public CustomerSync(CustomerMatcher matcher, CustomerRepository customerRepository) {
+    public CustomerSync(CustomerMatcher matcher, CustomerRepository customerRepository, CustomerSynchronizationStrategy synchronizationStrategy) {
         this.customerMatcher = matcher;
         this.customerRepository = customerRepository;
+        this.synchronizationStrategy = synchronizationStrategy;
     }
 
     /**
@@ -36,7 +38,7 @@ public class CustomerSync {
     }
 
     private boolean handleCustomer(ExternalCustomer externalCustomer, Customer customer) {
-        Customer syncedCustomer = CustomerSynchronizer.syncCustomer(externalCustomer, customer);
+        Customer syncedCustomer = synchronizationStrategy.syncCustomer(externalCustomer, customer);
 
         customerRepository.updateShoppingLists(externalCustomer.getShoppingLists());
 
@@ -46,7 +48,7 @@ public class CustomerSync {
 
     private void handleDuplicates(ExternalCustomer externalCustomer, CustomerMatches customerMatches) {
         for (Customer duplicate : customerMatches.getDuplicates()) {
-            duplicate = CustomerSynchronizer.updateDuplicate(externalCustomer, duplicate);
+            duplicate = synchronizationStrategy.updateDuplicate(externalCustomer, duplicate);
 
             createOrUpdateCustomer(duplicate);
         }
