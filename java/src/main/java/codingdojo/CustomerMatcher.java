@@ -1,10 +1,10 @@
 package codingdojo;
 
-public class CustomerDataAccess {
+public class CustomerMatcher {
 
     private final CustomerDataLayer customerDataLayer;
 
-    public CustomerDataAccess(CustomerDataLayer customerDataLayer) {
+    public CustomerMatcher(CustomerDataLayer customerDataLayer) {
         this.customerDataLayer = customerDataLayer;
     }
 
