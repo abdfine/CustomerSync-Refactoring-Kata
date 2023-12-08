@@ -1,6 +1,7 @@
 package codingdojo;
 
 import codingdojo.database.FakeDatabase;
+import codingdojo.matching.CustomerMatcher;
 import codingdojo.model.Address;
 import codingdojo.model.Customer;
 import codingdojo.model.CustomerType;
@@ -17,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CustomerSyncTest {
 
     private final FakeDatabase db = new FakeDatabase();
+    private final CustomerMatcher matcher = new CustomerMatcher(db);
+    CustomerSync sut = new CustomerSync(matcher, db);
 
     /**
      * The external record already exists in the customer db, so no need to create it.
@@ -33,7 +36,7 @@ public class CustomerSyncTest {
         customer.setExternalId(externalId);
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
+        CustomerSync sut = new CustomerSync(matcher,db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -58,7 +61,6 @@ public class CustomerSyncTest {
         customer.setExternalId(externalId);
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -82,7 +84,6 @@ public class CustomerSyncTest {
         customer.setShoppingLists(Arrays.asList(new ShoppingList("eyeliner", "blusher")));
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -100,8 +101,6 @@ public class CustomerSyncTest {
         ExternalCustomer externalCustomer = createExternalCompany();
         externalCustomer.setExternalId("12345");
 
-        CustomerSync sut = new CustomerSync(db);
-
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
         // ACT
@@ -117,8 +116,6 @@ public class CustomerSyncTest {
 
         ExternalCustomer externalCustomer = createExternalPrivatePerson();
         externalCustomer.setExternalId("12345");
-
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -143,7 +140,6 @@ public class CustomerSyncTest {
         customer.setExternalId(externalId);
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -166,7 +162,6 @@ public class CustomerSyncTest {
         customer.setCompanyNumber("000-3234");
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -191,7 +186,6 @@ public class CustomerSyncTest {
         customer.addShoppingList(new ShoppingList("eyeliner", "mascara", "blue bombe eyeshadow"));
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -216,7 +210,6 @@ public class CustomerSyncTest {
         customer.setExternalId("conflicting id");
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -242,7 +235,6 @@ public class CustomerSyncTest {
         customer.setExternalId(externalId);
 
         db.addCustomer(customer);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
@@ -273,7 +265,6 @@ public class CustomerSyncTest {
 
         db.addCustomer(customer);
         db.addCustomer(customer2);
-        CustomerSync sut = new CustomerSync(db);
 
         StringBuilder toAssert = printBeforeState(externalCustomer, db);
 
