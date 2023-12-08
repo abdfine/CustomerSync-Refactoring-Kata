@@ -1,5 +1,8 @@
 package codingdojo;
 
+import codingdojo.model.Address;
+import codingdojo.model.ShoppingList;
+
 import java.util.List;
 
 public class ExternalCustomer {

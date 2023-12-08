@@ -1,4 +1,9 @@
-package codingdojo;
+package codingdojo.database;
+
+import codingdojo.*;
+import codingdojo.model.Customer;
+import codingdojo.model.CustomerRepository;
+import codingdojo.model.ShoppingList;
 
 import java.util.*;
 

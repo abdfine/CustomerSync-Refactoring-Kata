@@ -1,4 +1,8 @@
-package codingdojo;
+package codingdojo.matching;
+
+import codingdojo.model.Customer;
+import codingdojo.model.CustomerRepository;
+import codingdojo.model.ShoppingList;
 
 public class CustomerMatcher {
 

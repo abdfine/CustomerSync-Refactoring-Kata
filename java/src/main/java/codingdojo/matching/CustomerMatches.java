@@ -1,4 +1,6 @@
-package codingdojo;
+package codingdojo.matching;
+
+import codingdojo.model.Customer;
 
 import java.util.ArrayList;
 import java.util.Collection;

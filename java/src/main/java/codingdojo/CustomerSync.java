@@ -1,5 +1,12 @@
 package codingdojo;
 
+import codingdojo.matching.CustomerMatcher;
+import codingdojo.matching.CustomerMatches;
+import codingdojo.model.Customer;
+import codingdojo.model.CustomerRepository;
+import codingdojo.model.CustomerType;
+import codingdojo.model.ShoppingList;
+
 import java.util.List;
 
 public class CustomerSync {

@@ -1,5 +1,10 @@
 package codingdojo;
 
+import codingdojo.database.FakeDatabase;
+import codingdojo.model.Address;
+import codingdojo.model.Customer;
+import codingdojo.model.CustomerType;
+import codingdojo.model.ShoppingList;
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
