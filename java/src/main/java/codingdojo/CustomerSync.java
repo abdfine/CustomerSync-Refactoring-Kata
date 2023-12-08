@@ -4,10 +4,6 @@ import codingdojo.matching.CustomerMatcher;
 import codingdojo.matching.CustomerMatches;
 import codingdojo.model.Customer;
 import codingdojo.model.CustomerRepository;
-import codingdojo.model.CustomerType;
-import codingdojo.model.ShoppingList;
-
-import java.util.List;
 
 public class CustomerSync {
 
@@ -30,84 +26,40 @@ public class CustomerSync {
 
         CustomerMatches customerMatches = customerMatcher.getCustomerMatches(externalCustomer);
 
-        Customer customer = customerMatches.getCustomer();
-
-        if (customer == null) {
-            customer = new Customer();
-            customer.setExternalId(externalCustomer.getExternalId());
-            customer.setMasterExternalId(externalCustomer.getExternalId());
-        }
-
-        populateNameTypeCompanyNumberBonusPoints(externalCustomer, customer);
-
-        boolean created = false;
-        if (customer.getInternalId() == null) {
-            customer = createCustomer(customer);
-            created = true;
-        } else {
-            this.customerRepository.updateCustomerRecord(customer);
-        }
-        updateContactInfo(externalCustomer, customer);
+        boolean created = handleCustomer(externalCustomer, customerMatches.getCustomer());
 
         if (customerMatches.hasDuplicates()) {
-            for (Customer duplicate : customerMatches.getDuplicates()) {
-                updateDuplicate(externalCustomer, duplicate);
-            }
+            handleDuplicates(externalCustomer, customerMatches);
         }
-
-        updateRelations(externalCustomer, customer);
-        updatePreferredStore(externalCustomer, customer);
 
         return created;
     }
 
+    private boolean handleCustomer(ExternalCustomer externalCustomer, Customer customer) {
+        Customer syncedCustomer = CustomerSynchronizer.syncCustomer(externalCustomer, customer);
 
-    private void updateRelations(ExternalCustomer externalCustomer, Customer customer) {
-        List<ShoppingList> consumerShoppingLists = externalCustomer.getShoppingLists();
-        for (ShoppingList consumerShoppingList : consumerShoppingLists) {
-            customer.addShoppingList(consumerShoppingList);
-            customerRepository.updateShoppingList(consumerShoppingList);
-            customerRepository.updateCustomerRecord(customer);
+        customerRepository.updateShoppingLists(externalCustomer.getShoppingLists());
+
+        return createOrUpdateCustomer(syncedCustomer);
+    }
+
+
+    private void handleDuplicates(ExternalCustomer externalCustomer, CustomerMatches customerMatches) {
+        for (Customer duplicate : customerMatches.getDuplicates()) {
+            duplicate = CustomerSynchronizer.updateDuplicate(externalCustomer, duplicate);
+
+            createOrUpdateCustomer(duplicate);
         }
     }
 
-    private void updateDuplicate(ExternalCustomer externalCustomer, Customer duplicate) {
-        if (duplicate == null) {
-            duplicate = new Customer();
-            duplicate.setExternalId(externalCustomer.getExternalId());
-            duplicate.setMasterExternalId(externalCustomer.getExternalId());
-        }
-
-        duplicate.setName(externalCustomer.getName());
-
-        if (duplicate.getInternalId() == null) {
-            createCustomer(duplicate);
+    private boolean createOrUpdateCustomer(Customer customer) {
+        boolean created = false;
+        if (customer.getInternalId() == null) {
+            this.customerRepository.createCustomerRecord(customer);
+            created = true;
         } else {
-            this.customerRepository.updateCustomerRecord(duplicate);
+            this.customerRepository.updateCustomerRecord(customer);
         }
+        return created;
     }
-
-    private void updatePreferredStore(ExternalCustomer externalCustomer, Customer customer) {
-        customer.setPreferredStore(externalCustomer.getPreferredStore());
-    }
-
-    private Customer createCustomer(Customer customer) {
-        return this.customerRepository.createCustomerRecord(customer);
-    }
-
-    private void populateNameTypeCompanyNumberBonusPoints(ExternalCustomer externalCustomer, Customer customer) {
-        customer.setName(externalCustomer.getName());
-        if (externalCustomer.isCompany()) {
-            customer.setCompanyNumber(externalCustomer.getCompanyNumber());
-            customer.setCustomerType(CustomerType.COMPANY);
-        } else {
-            customer.setBonusPoints(externalCustomer.getBonusPoints());
-            customer.setCustomerType(CustomerType.PERSON);
-        }
-    }
-
-    private void updateContactInfo(ExternalCustomer externalCustomer, Customer customer) {
-        customer.setAddress(externalCustomer.getPostalAddress());
-    }
-
 }
